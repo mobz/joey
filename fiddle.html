@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>DOMj Fiddle</title>
+		<script src="src/joey.js"></script>
+		<script>
+		setTimeout( function() {
+			var i = document.getElementById("i");
+			var o = document.getElementById("o");
+			function render() {
+				var val = i.value;
+				try {
+					var el = joey( eval( "(" + i.value + ")" ) );
+					while( o.firstChild ) {
+						o.removeChild( o.firstChild);
+					}
+					o.appendChild( el );
+				} catch( e ) { console.log( e ); }
+			}
+			i.addEventListener("keyup", render);
+			render();
+		}, 10);
+		</script>
+	</head>
+
+	<body>
+		<textarea id="i" rows="20" cols="70">
+{ tag: "DIV", id: "foo", children: [
+  "Just some text",
+  { tag: "INPUT", type: "text", value: "an input" },
+  { tag: "A", href: "https://github.com/mobz/domj", text: "a link" },
+  { tag: "BUTTON", type: "button", onclick: function() { alert( "hello" ); }, text: "a button" }
+] }
+		</textarea>
+		<div id="o"></div>
+	</body>
+</html>
