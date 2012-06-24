@@ -2,6 +2,5 @@
 
 This is a naive implementation of DOMj ( https://github.com/mobz/domj )
 
-open fiddle.html in a browser to have a play!
-
+Have a fiddle with DOMj here ( http://mobz.github.com/joey/fiddle.html )
 
