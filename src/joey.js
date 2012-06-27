@@ -1,10 +1,6 @@
 (function() {
 
 	var global = this;
-	
-	function lower( name ) {
-		return name.replace(/^[A-Z]/, function(a) { return a.toLowerCase(); });
-	}
 
 	function addAttr( el, attr, value, context ) {
 		if( attr === 'text' ) {
@@ -20,8 +16,8 @@
 			for( var prop in value ) {
 				el[ attr ][ prop ] = value[ prop ];
 			}
-		} else if( attr.indexOf("on") === 0 && ( typeof value === 'function' ) ) {
-			el.addEventListener( lower( attr.substr(2) ), value, false );
+		} else if( attr.indexOf("on") === 0 ) {
+			el.addEventListener( attr.substr(2), value, false );
 		} else {
 			el[ attr ] = value;
 		}
