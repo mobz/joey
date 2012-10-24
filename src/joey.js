@@ -1,5 +1,6 @@
 (function() {
 
+	var global = this;
 	var shortcuts = {
 		"text" : "textContent",
 		"cls" : "className"
@@ -40,8 +41,8 @@
 		return el;
 	};
 
-	this.joey = function joey(elementDef, parentNode) {
-		return createNode( elementDef, parentNode, parentNode ? parentNode.ownerDocument : this.document; );
+	global.joey = function joey(elementDef, parentNode) {
+		return createNode( elementDef, parentNode, parentNode ? parentNode.ownerDocument : global.document );
 	};
 
 }());
