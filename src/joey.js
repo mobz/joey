@@ -1,16 +1,15 @@
 (function() {
 
-	var global = this;
+	var shortcuts = {
+		"text" : "textContent",
+		"cls" : "className"
+	};
 
 	function addAttr( el, attr, value, context ) {
-		if( attr === 'text' ) {
-			el.appendChild( context.createTextNode( value ) );
-		} else if( attr === 'children' ) {
+		attr = shortcuts[attr] || attr;
+		if( attr === 'children' ) {
 			for( var i = 0; i < value.length; i++) {
-				var newNode = createNode( value[i], el, context );
-				if( newNode ) {
-					el.appendChild( newNode );
-				}
+				createNode( value[i], el, context );
 			}
 		} else if( attr === 'style' || attr === 'dataset' ) {
 			for( var prop in value ) {
@@ -26,13 +25,11 @@
 	function createNode( obj, parent, context ) {
 		var el, attr;
 		if( obj == null ) {
-			el = undefined;
+			return;
 		} else if( typeof obj === 'string' ) {
 			el = context.createTextNode( obj );
-		} else if( obj.nodeType === 1 ) {
-			el = obj;
 		} else {
-			el = context.createElement( obj.tag || 'DIV' );
+			el = context.createElement( obj.tag || obj.tagName || 'DIV' );
 			for( attr in obj ) {
 				addAttr( el, attr, obj[ attr ], context );
 			}
@@ -43,9 +40,8 @@
 		return el;
 	};
 
-	global.joey = function joey(elementDef, parentNode) {
-		return createNode( elementDef, parentNode, (parentNode && parentNode.ownerDocument) || global.document );
+	this.joey = function joey(elementDef, parentNode) {
+		return createNode( elementDef, parentNode, parentNode ? parentNode.ownerDocument : this.document; );
 	};
 
 }());
-
